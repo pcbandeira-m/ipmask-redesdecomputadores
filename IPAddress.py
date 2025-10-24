@@ -3,7 +3,7 @@ class IPAddress:
         self.ip = ip
         self.mask = mask
     
-   # CONVERSÃO DE INTEIRO PARA BINÁRIO
+   ### CONVERSÃO DE INTEIRO PARA BINÁRIO ###
     def intForBin(self, ip):
         binaryIPV4 = []
         intBinaryIPV4 = []
@@ -22,8 +22,7 @@ class IPAddress:
             
         return intBinaryIPV4 # lista de inteiros
 
-    # MÁSCARA INVERTIDA
-    # Modificação: Remove os parâmetros 'mask'
+    ### INVERSÃO DA MÁSCARA ###
     def invertedMask(self):
         invertedMask = []
         inversionFactor = 255  # 0b11111111 em decimal
@@ -34,8 +33,7 @@ class IPAddress:
 
         return invertedMask
 
-    # CÁLCULO DO ENDEREÇO DE REDE
-    # Modificação: Remove os parâmetros 'ip' e 'mask'
+    ### CÁLCULO DO ENDEREÇO DE REDE ###
     def networkAddressCalculator(self):
         networkAddress = []
 
@@ -46,26 +44,19 @@ class IPAddress:
 
         return networkAddress
 
-    # CÁLCULO DO ENDEREÇO DE BROADCAST
-    # Modificação: Remove os parâmetros 'ip' e 'mask'
+    ### CÁLCULO DO ENDEREÇO DE BROADCAST ###
     def broadcastNetworkCalculator(self):
-        # Usa o método interno da classe, referenciando-o com 'self'
         newMask = self.invertedMask()
         broadcastAddress = []
 
         for i in range(4):
-            # Usa self.ip
             orResult = self.ip[i] | newMask[i]
             broadcastAddress.append(orResult)
         return broadcastAddress
 
 
     def is_valid_host(self, network_address, broadcast_address):
-        # Esta lógica está incorreta para listas. A forma correta é comparar octeto por octeto.
-        # Mas para fins de demonstração, vamos seguir uma lógica que funcione com listas.
-        
-        # O IP é válido se for maior ou igual ao endereço de rede
-        # E menor ou igual ao endereço de broadcast.
+        # Endereço de rede <= IP válido <= Endereço de broadcast
         is_greater_equal_network = all(self.ip[i] >= network_address[i] for i in range(4))
         is_less_equal_broadcast = all(self.ip[i] <= broadcast_address[i] for i in range(4))
         
